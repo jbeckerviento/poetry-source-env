@@ -9,7 +9,7 @@ authors = [{ name = "Justin Becker", email = "justin.becker@viento-msa.com" }]
 dependencies = [
     "dict-deep>=4.1.2,<5.0.0",
     "poetry>=1.5.0,<2.0.0; python_version < '3.9'",
-    "poetry>=1.5.0,<2.3.0; python_version >= '3.9'",
+    "poetry>=1.5.0,<2.4.0; python_version >= '3.9'",
     "pydantic>=1.10.7,<2.0.0",
     "typing-extensions>=4.4.0; python_version < '3.11'",
 ]

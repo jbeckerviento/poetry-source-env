@@ -16,9 +16,9 @@ https://github.com/celsiusnarhwal/poetry-source-env.
 This plugin is intended as a workaround for python-poetry/poetry#5958 and will be deprecated if comparable functionality
 is ever implemented in Poetry itself.
 
-poetry-source-env supports Poetry 1.5 through 2.2.x for both environment-defined sources and environment-variable
+poetry-source-env supports Poetry 1.5 through 2.3.x for both environment-defined sources and environment-variable
 expansion inside `tool.poetry.source`.
-Poetry 2.2.x support applies when Poetry itself is running on Python 3.9 or later.
+Poetry 2.3.x support applies when Poetry itself is running on Python 3.9 or later.
 
 Note that poetry-source-env cannot resolve repositories when installing other Poetry plugins (Poetry does not
 load plugins when running `poetry self` commands). If you need a python-poetry/poetry#5958 workaround for installing Poetry

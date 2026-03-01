@@ -4,6 +4,12 @@ All notable changes to poetry-source-env will be documented here. Breaking chang
 
 poetry-source-env adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="2-1-0">[2.1.0] - 2026-03-01</a>
+
+### Fixed
+
+- Added support for Poetry 2.3.x by widening the Poetry dependency range.
+
 ## <a name="2-0-3">[2.0.3] - 2026-02-28</a>
 
 ### Fixed
