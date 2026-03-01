@@ -1,32 +1,16 @@
 import os
 import re
-from os.path import expandvars
 
 from cleo.io.io import IO
-from dict_deep import deep_get
 from poetry.plugins.plugin import Plugin
 from poetry.poetry import Poetry
 from poetry.repositories.legacy_repository import LegacyRepository
 from poetry.repositories.repository_pool import Priority
-from poetry.toml.file import TOMLFile
-from pydantic import BaseSettings, validate_arguments
-from typing_extensions import Self
-
-
-class PSPConfig(BaseSettings):
-    prefix: str = "POETRY_REPOSITORIES_"
-    env: bool = True
-    toml: bool = True
-
-    @classmethod
-    @validate_arguments(config=dict(arbitrary_types_allowed=True))
-    def load(cls, file: TOMLFile) -> Self:
-        pyproject = file.read()
-        return cls.parse_obj(deep_get(pyproject, "tool.poetry-source-env") or {})
+from poetry_source_env.config import PSPConfig, expand_poetry_sources
 
 
 class PoetrySourcePlugin(Plugin):
-    def activate(self, poetry: Poetry, io: IO = None) -> None:
+    def activate(self, poetry: Poetry, io: IO) -> None:
         config: PSPConfig = PSPConfig.load(poetry.pyproject.file)
 
         if config.env:
@@ -49,7 +33,6 @@ class PoetrySourcePlugin(Plugin):
                 )
 
                 priorities = {
-                    "default": Priority.DEFAULT,
                     "primary": Priority.PRIMARY,
                     "supplemental": Priority.SUPPLEMENTAL,
                     "explicit": Priority.EXPLICIT,
@@ -60,9 +43,9 @@ class PoetrySourcePlugin(Plugin):
                 poetry.pool.add_repository(repo, priority=priority)
 
         if config.toml:
+            expand_poetry_sources(poetry.pyproject.data)
+
             for repository in poetry.get_sources():
                 poetry.pool.remove_repository(repository.name)
-                repo = LegacyRepository(
-                    expandvars(repository.name), expandvars(repository.url)
-                )
+                repo = LegacyRepository(repository.name, repository.url)
                 poetry.pool.add_repository(repo, priority=repository.priority)

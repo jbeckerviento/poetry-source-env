@@ -1,21 +1,29 @@
-[tool.poetry]
+[project]
 name = "poetry-source-env"
-version = "2.0.1"
+version = "2.1.0"
 description = "Load Poetry package sources from environment variables"
-authors = ["celsius narhwal <hello@celsiusnarhwal.dev>"]
 readme = "README.md"
+requires-python = ">=3.8,<4.0"
 license = "MIT"
-homepage = "https://github.com/celsiusnarhwal/poetry-source-env"
-repository = "https://github.com/celsiusnarhwal/poetry-source-env"
+authors = [{ name = "Justin Becker", email = "justin.becker@viento-msa.com" }]
+dependencies = [
+    "dict-deep>=4.1.2,<5.0.0",
+    "poetry>=1.5.0,<2.0.0; python_version < '3.9'",
+    "poetry>=1.5.0,<2.3.0; python_version >= '3.9'",
+    "pydantic>=1.10.7,<2.0.0",
+    "typing-extensions>=4.4.0; python_version < '3.11'",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-dict-deep = "^4.1.2"
-poetry = "^1.5.0"
-pydantic = "^1.10.7"
+[project.urls]
+Homepage = "https://github.com/jbeckerviento/poetry-source-env"
+Repository = "https://github.com/jbeckerviento/poetry-source-env"
+Source = "https://github.com/celsiusnarhwal/poetry-source-env"
 
-[tool.poetry.plugins."poetry.plugin"]
+[project.entry-points."poetry.plugin"]
 poetry-source-env = "poetry_source_env.plugin:PoetrySourcePlugin"
+
+[project.entry-points."poetry.application.plugin"]
+poetry-source-env = "poetry_source_env.application_plugin:PoetrySourceApplicationPlugin"
 
 [tool.black]
 target-version = ["py38"]
@@ -25,5 +33,5 @@ line-length = 88
 profile = "black"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

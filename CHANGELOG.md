@@ -4,6 +4,33 @@ All notable changes to poetry-source-env will be documented here. Breaking chang
 
 poetry-source-env adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## <a name="2-0-3">[2.0.3] - 2026-02-28</a>
+
+### Fixed
+
+- Restored `tool.poetry.source` environment-variable expansion on Poetry 2.2.x by patching Poetry's project loader
+  before source validation runs.
+- Added support for Poetry 2.2.x for environment-defined sources by widening the Poetry dependency range.
+- Removed the stale `default` source priority mapping so environment-defined priorities stay compatible with Poetry
+  2.2.
+
+### Changed
+
+- Migrated package metadata and plugin entry points from legacy `[tool.poetry]` tables to `[project]`.
+
+## <a name="2-0-2">[2.0.2] - 2026-02-28</a>
+
+### Fixed
+
+- Added support for Poetry 2.2.x for environment-defined sources by widening the Poetry dependency range.
+- Removed the stale `default` source priority mapping so environment-defined priorities stay compatible with Poetry
+  2.2.
+
+### Changed
+
+- Documented that Poetry 2.2.x validates `tool.poetry.source` entries before plugins activate, which limits how much
+  of the TOML expansion workflow remains usable there.
+
 ## <a name="2-0-1">[2.0.1] - 2023-06-15</a>
 
 ### Fixed

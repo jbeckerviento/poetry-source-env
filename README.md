@@ -2,16 +2,23 @@
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/poetry-source-env?logo=python&logoColor=white&style=for-the-badge)](https://pypi.org/project/poetry-source-env)
 [![PyPI](https://img.shields.io/pypi/v/poetry-source-env?logo=pypi&color=green&logoColor=white&style=for-the-badge)](https://pypi.org/project/poetry-source-env)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/celsiusnarhwal/poetry-source-env?logo=github&color=orange&logoColor=white&style=for-the-badge)](https://github.com/celsiusnarhwal/poetry-source-env/releases)
-[![PyPI - License](https://img.shields.io/pypi/l/poetry-source-env?color=03cb98&style=for-the-badge)](https://github.com/celsiusnarhwal/poetry-source-env/blob/main/LICENSE.md)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jbeckerviento/poetry-source-env?logo=github&color=orange&logoColor=white&style=for-the-badge)](https://github.com/jbeckerviento/poetry-source-env/releases)
+[![PyPI - License](https://img.shields.io/pypi/l/poetry-source-env?color=03cb98&style=for-the-badge)](./LICENSE.md)
 [![Code style: Black](https://aegis.celsiusnarhwal.dev/badge/black?style=for-the-badge)](https://github.com/psf/black)
 
 poetry-source-env is a Poetry plugin that lets you define private package sources for your project without exposing
 their URLs in `pyproject.toml`. It can load package source definitions from environment variables and expand environment
 variables in the `tool.poetry.source` section of `pyproject.toml`.
 
+This repository is derived from the original upstream project at
+https://github.com/celsiusnarhwal/poetry-source-env.
+
 This plugin is intended as a workaround for python-poetry/poetry#5958 and will be deprecated if comparable functionality
 is ever implemented in Poetry itself.
+
+poetry-source-env supports Poetry 1.5 through 2.2.x for both environment-defined sources and environment-variable
+expansion inside `tool.poetry.source`.
+Poetry 2.2.x support applies when Poetry itself is running on Python 3.9 or later.
 
 Note that poetry-source-env cannot resolve repositories when installing other Poetry plugins (Poetry does not
 load plugins when running `poetry self` commands). If you need a python-poetry/poetry#5958 workaround for installing Poetry
@@ -21,6 +28,43 @@ plugins, see https://github.com/python-poetry/poetry/issues/5958#issuecomment-14
 
 ```bash
 poetry self add poetry-source-env
+```
+
+## Local Build And Installation
+
+Build the plugin locally from a checkout:
+
+```bash
+poetry install
+poetry build
+```
+
+This produces distribution artifacts in `dist/`.
+
+Install the locally built wheel into Poetry:
+
+```bash
+poetry self add ./dist/poetry_source_env-<version>-py3-none-any.whl
+```
+
+```powershell
+poetry self add (Resolve-Path .\dist\poetry_source_env-<version>-py3-none-any.whl)
+```
+
+For local development, you can install the checkout directly instead:
+
+```bash
+poetry self add --editable .
+```
+
+```powershell
+poetry self add --editable (Resolve-Path .)
+```
+
+To remove a locally installed copy:
+
+```bash
+poetry self remove poetry-source-env
 ```
 
 ## Usage
@@ -80,4 +124,5 @@ Supported configuration options include:
 
 ## License
 
-poetry-source-env is licensed under the [MIT License](https://github.com/celsiusnarhwal/poetry-source-env/blob/main/LICENSE.md).
+poetry-source-env is licensed under the [MIT License](./LICENSE.md). The original upstream source repository is
+https://github.com/celsiusnarhwal/poetry-source-env.
